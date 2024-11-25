@@ -34,7 +34,7 @@ def main():
     for i, search_word in tqdm(enumerate(filtered_keywords_values.keys()), total=len(filtered_keywords_values)):
         query_df = search_test_elements_df[search_test_elements_df.keywords == search_word]
         query_df = query_df.sample(n=min([config["NUM_OF_SAMPLES"], query_df.shape[0]]), random_state=i)
-        for q_collection_idx, q_element_idx, q_element_type, q_file_path, _ in query_df.values:
+        for q_collection_idx, q_element_idx, q_element_type, q_file_path, _, _ in query_df.values:
             case_flatten_elements_df = flatten_elements_df[
                 (flatten_elements_df.file_path != q_file_path) & (flatten_elements_df.keywords == search_word)]
             answer_case_flatten_elements_df = case_flatten_elements_df[
