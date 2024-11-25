@@ -1,0 +1,4 @@
+FILE_NAME: '/data/match_element_retrieval/element_to_element/data/csv/collection_element_info_total.csv'
+AWS_URL: 'https://file.miricanvas.com'
+SAVE_PATH: '/data/s3_dataset/collection_element_dataset'
+CASE_PATH: '/data/match_element_retrieval/element_to_element/data/download_element_log'

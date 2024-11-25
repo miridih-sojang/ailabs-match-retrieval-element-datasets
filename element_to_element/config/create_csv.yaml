@@ -1,0 +1,9 @@
+CSV_INPUT_PATH: '/data/match_element_retrieval/element_to_element/data/csv'
+IMAGE_SAVE_PATH: '/data/s3_dataset/collection_element_dataset'
+DESIGNER_FILE_NAME: 'collection_elements_designer_keywords.csv'
+COLLECTION_FILE_NAME: 'collection_element_info_total.csv'
+NOT_EXISTS_SYMBOL: 'NOT_EXISTS'
+THRESHOLD_COLLECTION_PER_ELEMENT: 2
+THRESHOLD_COLLECTION_COUNT: 10
+SEED: 19941201
+TEST_RATIO: 0.1

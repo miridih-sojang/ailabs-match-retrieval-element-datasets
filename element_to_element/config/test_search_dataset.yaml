@@ -1,0 +1,6 @@
+CSV_INPUT_PATH: '/data/match_element_retrieval/element_to_element/data/csv'
+ELEMENTS_FILE_NAME: 'total_dataset.csv'
+TEST_ELEMENTS_FILE_NAME: 'test_dataset.csv'
+MIN_ELEMENT_NUM: 100
+MAX_ELEMENT_NUM: 600
+NOT_EXISTS_SYMBOL: 'NOT_EXISTS'
