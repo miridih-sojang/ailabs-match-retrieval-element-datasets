@@ -40,14 +40,14 @@ def main():
             answer_case_flatten_elements_df = case_flatten_elements_df[
                 case_flatten_elements_df.collection_idx == q_collection_idx]
             search_test_dataset.append([search_word, q_collection_idx, q_element_idx, q_element_type, q_file_path,
-                                        case_flatten_elements_df['collection_idx'].values,
-                                        case_flatten_elements_df['element_idx'].values,
-                                        case_flatten_elements_df['element_type'].values,
-                                        case_flatten_elements_df['file_path'].values,
-                                        answer_case_flatten_elements_df['collection_idx'].values,
-                                        answer_case_flatten_elements_df['element_idx'].values,
-                                        answer_case_flatten_elements_df['element_type'].values,
-                                        answer_case_flatten_elements_df['file_path'].values])
+                                        case_flatten_elements_df['collection_idx'].values.tolist(),
+                                        case_flatten_elements_df['element_idx'].values.tolist(),
+                                        case_flatten_elements_df['element_type'].values.tolist(),
+                                        case_flatten_elements_df['file_path'].values.tolist(),
+                                        answer_case_flatten_elements_df['collection_idx'].values.tolist(),
+                                        answer_case_flatten_elements_df['element_idx'].values.tolist(),
+                                        answer_case_flatten_elements_df['element_type'].values.tolist(),
+                                        answer_case_flatten_elements_df['file_path'].values.tolist()])
     search_test_dataset_df = pd.DataFrame(search_test_dataset,
                                           columns=['search_word', 'q_collection_idx', 'q_element_idx', 'q_element_type',
                                                    'q_file_path',
@@ -55,11 +55,11 @@ def main():
                                                    'a_collection_idx', 'a_element_idx', 'a_element_type',
                                                    'a_file_path'])
     print(f'Original Search Test Dataset : {search_test_dataset_df.shape[0]}')
-    search_test_dataset_df.to_csv(f'{config["CSV_INPUT_PATH"]}/all_search_test_dataset.csv')
+    search_test_dataset_df.to_csv(f'{config["CSV_INPUT_PATH"]}/all_search_test_dataset.csv', index=False)
 
     search_test_dataset_df = search_test_dataset_df[search_test_dataset_df.a_collection_idx.str.len() != 0]
     print(f'Filter Not Exists Answer Search Test Dataset : {search_test_dataset_df.shape[0]}')
-    search_test_dataset_df.to_csv(f'{config["CSV_INPUT_PATH"]}/search_test_dataset.csv')
+    search_test_dataset_df.to_csv(f'{config["CSV_INPUT_PATH"]}/search_test_dataset.csv', index=False)
 
     search_test_dataset_df['candidate_answer_ratio'] = search_test_dataset_df.progress_apply(
         lambda x: len(x['a_collection_idx']) / len(x['c_collection_idx']), axis=1)
