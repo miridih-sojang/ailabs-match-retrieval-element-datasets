@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 
 from utils import get_args, read_yaml
 
+tqdm.pandas()
 
 def filter_success_download_file(df, path):
     file_exist_bool_list = []
@@ -26,6 +27,7 @@ def filter_one_to_one_matching_by_collection_idx(df, threshold):
     df = df[~df['element_idx'].isin(filtered_values)]
     print(f'[After] Filter One-to-one Collection Files : {df.shape[0]}')
     return df
+
 
 def filter_collection_idx_by_count(df, threshold):
     print(f'[Before] Filter Collection Count : {df.shape[0]}')
@@ -77,3 +79,7 @@ def main():
     elements_df.to_csv(f'{config["CSV_PATH"]}/total_dataset.csv', index=False)
     train_elements_df.to_csv(f'{config["CSV_PATH"]}/train_dataset.csv', index=False)
     test_elements_df.to_csv(f'{config["CSV_PATH"]}/test_dataset.csv', index=False)
+
+
+if __name__ == '__main__':
+    main()
