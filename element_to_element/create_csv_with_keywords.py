@@ -1,6 +1,8 @@
 import os
 from tqdm import tqdm
+import numpy as np
 import pandas as pd
+from PIL import Image
 from sklearn.model_selection import train_test_split
 
 from utils import get_args, read_yaml
@@ -18,6 +20,23 @@ def filter_success_download_file(df, path):
     df = df[df['is_exists']]
     df.drop(columns=['is_exists'], axis=1, inplace=True)
     print(f'[After] Filter Success Download Files : {df.shape[0]}')
+    return df
+
+
+def filter_image_resolution(df, path):
+    file_resolution_bool_list = []
+    for file_path in tqdm(df['file_path'].values):
+        img = Image.open(f'{path}/{file_path}').convert('RGB')
+        h, w, c = np.array(img).shape
+        if h <= 10 or w <= 10:
+            file_resolution_bool_list.append(False)
+        else:
+            file_resolution_bool_list.append(True)
+    print(f'[Before] Filter High Resolution Images Files : {df.shape[0]}')
+    df['is_exists'] = file_resolution_bool_list
+    df = df[df['is_exists']]
+    df.drop(columns=['is_exists'], axis=1, inplace=True)
+    print(f'[After] Filter High Resolution Images Files : {df.shape[0]}')
     return df
 
 
@@ -50,6 +69,8 @@ def main():
     elements_df['file_path'] = elements_df['file_path'].progress_apply(lambda x: f'{x}.png')
     print(elements_df.shape)
     elements_df = filter_success_download_file(elements_df, config['IMAGE_SAVE_PATH'])
+    print(elements_df.shape)
+    elements_df = filter_image_resolution(elements_df, config['IMAGE_SAVE_PATH'])
     print(elements_df.shape)
     elements_df['primary_element_key'] = elements_df.progress_apply(lambda x: f'{x["element_idx"]}-{x["element_type"]}',
                                                                     axis=1)
